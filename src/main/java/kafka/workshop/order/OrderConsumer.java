@@ -11,13 +11,13 @@ import static java.time.Duration.ofSeconds;
 import static java.util.Collections.singletonList;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 
-// kafka-topics --zookeeper localhost:2181 --create --topic order-confirmations --replication-factor 1 --partitions 3
+// kafka-topics --zookeeper localhost:2181 --create --topic orders --replication-factor 1 --partitions 3
 
 
 public class OrderConsumer {
 
     public static String BOOTSTRAP_SERVERS = "localhost:9092";
-    public static String TOPIC = "order-confirmations";
+    public static String TOPIC = "orders";
 
 //    public static String BOOTSTRAP_SERVERS = "116.203.31.40:9092";
 //    public static String TOPIC = "greetings";

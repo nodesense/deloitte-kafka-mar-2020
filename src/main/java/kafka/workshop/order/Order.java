@@ -6,6 +6,13 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.io.IOException;
 // POJO
+// We need to serialize the data inorder to send to other system
+// JSON, XML, Java serialization, Parquet,  Avro, etc, CSV
+// Convert in memory java objects to JSON then JSON to bytes and dispatch bytes to Kafka brokers
+
+// when we receive kafka broker, data is coming as bytes
+// bytes to JSON TEXT to Java Object
+
 public class Order {
     public String orderId;
     public Double amount;

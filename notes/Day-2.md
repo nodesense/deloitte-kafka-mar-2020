@@ -147,4 +147,6 @@ To know bytes consumed by given topic paritions
 kafka-log-dirs  --describe --bootstrap-server localhost:9092  --topic-list greetings
 
 
-Meet at 2:00 PM
+kafka-topics --zookeeper localhost:2181 --create --topic orders --replication-factor 1 --partitions 3
+
+Follow order consumer and producer with custom java code

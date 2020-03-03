@@ -37,9 +37,9 @@ public class OrderSerializer<T> implements Serializer<T> {
             return null;
 
         try {
-            // convert orderconfirmation to JSON bytes
+            // convert orderconfirmation to JSON bytes {orderId: "31232", amount: 332.232}
+            // then to bytes format
             byte[] bytes = objectMapper.writeValueAsBytes(orderConfirmationObj);
-            System.out.println("Bytes " + bytes);
 
             System.out.println("Bytes string " +  new String(bytes, StandardCharsets.UTF_8));
             return bytes;

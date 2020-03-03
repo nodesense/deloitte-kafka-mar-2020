@@ -82,6 +82,7 @@ public class OrderProducer {
 
             // during send, producer calls Serializer, convert orderconfirmation into bytes
             // calls the custom partitioner, assign partition
+
             producer.send(record);
             System.out.printf("order send %s sent\n", record);
             Thread.sleep(5000); // Demo only,
