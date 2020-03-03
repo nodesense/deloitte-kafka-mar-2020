@@ -162,11 +162,14 @@ public class SimpleProducer {
 
         props.put(RETRIES_CONFIG, 2); // how many retry when msg failed to send
 
-        // whatever first condition reached,
+        // whatever first condition reached BATCH_SIZE_CONFIG or LINGER_MS_CONFIG
         // group messages by max byte size, 16 KB, dispatch when it reaches 16 KB
         props.put(BATCH_SIZE_CONFIG, 16000); // bytes
         // group the messages by max wait time, when 1000 ms reached, dispatch the message
         props.put(LINGER_MS_CONFIG, 1000); // milli second
+
+        // or producer.flush() to push the data immediately
+
 
         // Reserved memory, pre-alloted in bytes
         props.put(BUFFER_MEMORY_CONFIG, 33554432);
@@ -198,11 +201,14 @@ public class SimpleProducer {
                             // it continue the loop, produce records, won't wait for ack
                             // ack is taken later with callbacks/Future
 
+                // async, non-blocking
                 producer.send(record, (metadata, ex) -> {
                     System.out.println("Ack offset " + metadata.offset() + " partition " + metadata.partition());
 
-                }); // async, non-blocking
+                });
                // RecordMetadata metadata = (RecordMetadata) producer.send(record).get(); // sync, blocking
+
+                // producer.flush(); // send to broker immediately // no batch
 
                 System.out.printf("Greeting %d - %s sent\n", counter, message);
                 // System.out.println("Ack offset " + metadata.offset() + " partition " + metadata.partition());
