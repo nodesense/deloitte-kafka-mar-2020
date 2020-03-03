@@ -453,19 +453,6 @@ re-partition(s)
 }
 
  
- Sai Shakti Das Sharma - sdassharma@deloitte.com 
- Anju Shukla | anjushukla85@deloitte.com 
- Nalini Kant Mishra ; nalmishra@deloitte.com 
- Hina Agarwal, hinagarwal@deloitte.com 
- Nilesh Jain, nileshpjain@deloitte.com 
- Sumana K R , sumkr@deloitte.com 
- Keerthana S Eswar - keeswar@deloitte.com 
- Vishal Agrawal vishagrawal@deloitte.com 
- Nikhil U Rao - nurao@deloitte.com 
- Rajesh Sadhu - rajsadhu@deloitte.com 
- Deepa Saw-deesaw@deloitte.com 
-
-
 Open command prompt
 
 java --version
