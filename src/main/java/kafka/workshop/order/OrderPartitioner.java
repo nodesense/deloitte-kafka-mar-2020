@@ -13,6 +13,11 @@ import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 import org.apache.kafka.common.PartitionInfo;
 
+
+// hash partition - strategy
+// if key null, round robin  - strategy
+// custom java strategy
+
 public class OrderPartitioner  implements  Partitioner  {
     @Override
     public void configure(Map<String, ?> configs) {
@@ -26,15 +31,17 @@ public class OrderPartitioner  implements  Partitioner  {
     // called after serializer
     @Override
     public int partition(String topic,
-                         Object key,  // key object as ref
+                         Object key,  // key object as ref, String
                          byte[] keyBytes, // key in serialized bytes
                          Object value,  // Order object
                          byte[] valueBytes, // serialized json bytes
                          Cluster cluster) {
 
+        System.out.println("partitioner called ");
         int partition = 0;
 
         // how many total partitions?
+        // orders topic, we have total 3 partitions
         List<PartitionInfo> partitions = cluster.partitionsForTopic(topic);
 
         int numPartitions = partitions.size();
@@ -44,6 +51,12 @@ public class OrderPartitioner  implements  Partitioner  {
         String country = (String) key;
         Order orderConfirmation = (Order) value;
 
+//
+//        if (orderConfirmation.amount > 10000) {
+//            partition = 0;
+//        } else if (orderConfirmation.amount > 5000) {
+//            partition = 1;
+//        }
 
 
         if (country.equals(("IN"))) {
@@ -53,8 +66,10 @@ public class OrderPartitioner  implements  Partitioner  {
         }  else if (country.equals(("UK"))) {
             partition = 2;
         } else {
-            partition = 3;
+            partition = 2; // other countries data goes into partition 2
         }
+
+        // Any custom partitions can be done
 
 
         // Kafka default is hash partition only

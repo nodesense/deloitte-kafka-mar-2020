@@ -58,7 +58,7 @@ public class OrderProducer {
         props.put(VALUE_SERIALIZER_CLASS_CONFIG, OrderSerializer.class);
 
         //props.put("partitioner.class", "ai.nodesense.workshop.order.OrderConfirmationPartitioner");
-        // props.put("partitioner.class", OrderPartitioner.class);
+        props.put("partitioner.class", OrderPartitioner.class);
 
 
         // Key as string, value as Order
@@ -76,11 +76,11 @@ public class OrderProducer {
             // Key is a string
             // Value is Order
             ProducerRecord<String, Order> record = new ProducerRecord<>(TOPIC,
-                    order.country, // key
-                    order); // value
+                    order.country, // key serializer
+                    order); // value serializer
             System.out.println("Sending " + order.orderId);
 
-            // during send, producer calls Serializer, convert orderconfirmation into bytes
+            // during send, producer calls Serializer, convert order into bytes
             // calls the custom partitioner, assign partition
 
             producer.send(record);

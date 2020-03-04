@@ -1,0 +1,10 @@
+{
+ "namespace": "kafka.workshop.models",
+ "type": "record",
+ "name": "Stock",
+ "fields": [
+     {"name": "id", "type": "string"},
+     {"name": "qty", "type": "int"}
+ ]
+}
+

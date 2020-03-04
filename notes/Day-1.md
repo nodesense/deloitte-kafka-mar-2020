@@ -750,3 +750,13 @@ kafka-console-producer --broker-list localhost:9092 --topic messages
 kafka-log-dirs  --describe --bootstrap-server localhost:9092  --topic-list greetings
 
 
+MAC
+
+zookeeper-server-start $KAFKA_HOME/etc/kafka/zookeeper.properties
+kafka-server-start $KAFKA_HOME/etc/kafka/server.properties
+kafka-server-start $KAFKA_HOME/etc/kafka/server-1.properties
+kafka-server-start $KAFKA_HOME/etc/kafka/server-2.properties
+kafka-server-start $KAFKA_HOME/etc/kafka/server-3.properties
+    schema-registry-start $KAFKA_HOME/etc/schema-registry/schema-registry.properties
+
+kafka-topics  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 4 --topic test2

@@ -7,7 +7,9 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.PartitionInfo;
 
+import java.util.List;
 import java.util.Properties;
 
 import static org.apache.kafka.clients.producer.ProducerConfig.*;
@@ -19,7 +21,7 @@ import static org.apache.kafka.clients.producer.ProducerConfig.*;
 public class SimpleProducer {
 
     public static String BOOTSTRAP_SERVERS = "localhost:9092,localhost:9093,localhost:9094";
-    public static String TOPIC = "greetings";
+    public static String TOPIC = "test2";
 
 
     public static String[] greetingMessages = new String[] {
@@ -184,6 +186,13 @@ public class SimpleProducer {
         System.out.println("PRoducer Setup ");
         // Key as string, value as string
         Producer<String, String> producer = new KafkaProducer<>(props);
+
+        List<PartitionInfo> partitions = producer.partitionsFor(TOPIC);
+        for (PartitionInfo partitionInfo: partitions) {
+            // partitionInfo.
+            System.out.println("Partition " + partitionInfo);
+            System.out.println("Leader Node " + partitionInfo.leader());
+        }
 
 
         int counter = 0;

@@ -26,6 +26,7 @@ public class OrderSerializer<T> implements Serializer<T> {
     @Override
     public void configure(Map<String, ?> props, boolean isKey) {
         // producer props new Producer(props)
+        // Initialize the serializer, setup db connection, create memory etc
     }
 
     // invoked when producer.send(orderConfirmationObj)
