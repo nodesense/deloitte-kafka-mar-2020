@@ -1,0 +1,14 @@
+{
+    "type":"record",
+    "namespace": "kafka.workshop.models",
+    "name":"Product",
+    "fields":[
+            {"name":"id","type":["null","int"],"default":null},
+            {"name":"name","type":["null","string"],"default":null},
+            {"name":"price","type":["null","int"],"default":null},
+            {"name":"create_ts","type":{"type":"long","logicalType":"timestamp-millis"}},
+            {"name":"update_ts","type":{"type":"long", "logicalType":"timestamp-millis"}}
+            ],
+
+    "connect.name":"products"
+}

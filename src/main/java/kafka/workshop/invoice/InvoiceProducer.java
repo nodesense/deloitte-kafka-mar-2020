@@ -15,9 +15,9 @@ import java.util.Random;
 // kafka-topics --zookeeper localhost:2181 --create --topic invoices --replication-factor 1 --partitions 3
 
 public class InvoiceProducer {
-    public static String BOOTSTRAP_SERVERS = "localhost:9092";
+    public static String BOOTSTRAP_SERVERS = "k1.training.sh:9092";
     // FIXME: Always check
-    public static String SCHEMA_REGISTRY = "http://localhost:8071"; //default
+    public static String SCHEMA_REGISTRY = "http://k1.training.sh:8081"; //default
     public static String TOPIC = "invoices";
 
     static Random random = new Random();
