@@ -156,3 +156,104 @@ Three Types of Windows
         gender
         pageId
       }
+      
+       
+
+Reparitions
+  create a topic, 2 paritions, 3 replicas
+     4 brokers, paritions and replicas assigned
+     
+     1 broker is down, it has some data
+     migrate to other broker
+   
+   
+kafka-topics  --create --zookeeper localhost:2181 --replication-factor 3 --partitions 2 --topic greetings
+
+kafka-topics --list --zookeeper localhost:2181
+
+kafka-topics --describe --zookeeper localhost:2181 --topic greetings
+
+ 
+
+  touch  topics-to-move.json
+   
+  cat topics-to-move.json
+  
+  {
+   "topics": [
+             {"topic": "greetings"},
+             {"topic": "invoices"}
+            ],
+       "version":1
+  }
+  
+    kafka-reassign-partitions --topics-to-move-json-file topics-to-move.json --broker-list "localhost:9092" --generate --zookeeper localhost:2181
+
+
+
+
+kafka-reassign-partitions --zookeeper localhost:2181 --broker-list "0,1,2" --topics-to-move-json-file topics-to-move.json --generate > full-reassignment-file.json
+
+
+take the proposed content from full-assignment.json file and paste into new-partitions.json
+
+
+kafka-reassign-partitions --zookeeper localhost:2181  --reassignment-json-file new-partitions.json --execute
+
+
+
+touch partitions-to-move.json
+
+nano partitions-to-move.json
+
+{"partitions":
+             [{"topic": "greetings",
+               "partition": 1,
+               "replicas": [1,2,4] }],              
+  "version":1
+}
+
+
+kafka-reassign-partitions --reassignment-json-file partitions-to-move.json --execute
+
+Retention 
+    delete - removed from disk
+    compact - it keeps the last key
+             KEY IS USED as UNIQUE
+
+LOG Compaction
+    Publish the event
+    Publish the latest product prices
+    Publish latest setting changes
+    
+    all are stored into kafka, we cannot ourselve the messages
+    
+    Use case:
+        I want only the last published value for a given key
+        I don't have interest all the history of price changes
+        
+
+
+More Study 
+    https://kafka.apache.org/documentation/
+    https://towardsdatascience.com/log-compacted-topics-in-apache-kafka-b1aa1e4665a7
+    
+
+dirty ratio = the number of bytes in the head / total number of bytes in the log(tail + head)
+
+kafka-topics --create --zookeeper k1.training.sh:2181 --topic product-prices --replication-factor 1 --partitions 1 --config "cleanup.policy=compact" --config "delete.retention.ms=100"  --config "segment.ms=100" --config "min.cleanable.dirty.ratio=0.01"
+
+kafka-console-producer --broker-list k1.training.sh:9092 --topic product-prices --property parse.key=true --property key.separator=:
+
+ kafka-console-consumer --bootstrap-server k1.training.sh:9092 --topic product-prices --property  print.key=true --property key.separator=: --from-beginning
+
+
+ p1:10
+ p2:10
+ p1:20
+ 
+    
+    
+    
+  
+ 
