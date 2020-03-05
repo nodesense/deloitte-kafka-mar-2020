@@ -45,7 +45,7 @@ public class InvoiceProducer {
         invoice.setCustomerId(customerId);
 
         invoice.setQty(random.nextInt(5) + 1);
-        invoice.setAmount(random.nextInt(5000) + 100);
+        invoice.setAmount(random.nextInt(5000) + 100 );
         invoice.setCountry("IN");
         invoice.setInvoiceDate(System.currentTimeMillis());
         invoice.setState(stateId);
